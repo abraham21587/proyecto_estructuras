@@ -1,7 +1,3 @@
-//
-// Created by lupia on 19/05/2026.
-//
-
 #include "Detective.h"
 #include <iostream>
 using namespace std;
@@ -13,3 +9,43 @@ Detective::Detective()
 Detective::Detective(string nombre, int filaInicial, int columnaInicial)
     : nombre(nombre), fila(filaInicial), columna(columnaInicial),
       puntaje(0), pistasRecogidas(0) {}
+
+string Detective::getNombre() const {return nombre;}
+int Detective::getFila() const {return fila;}
+int Detective::getColumna() const {return columna;}
+int Detective::getPuntaje() const {return puntaje;}
+int Detective::getPistasRecogidas() const {return pistasRecogidas;}
+
+void Detective::setFila(int f) {fila=f;}
+void Detective::setColumna(int c) {columna=c;}
+void Detective::setPosicion(int f, int c) {fila = f; columna = c;}
+
+void Detective:: sumarPunto() {
+    puntaje++;
+}
+
+void Detective:: reducirPuntajeMitad() {
+    puntaje = puntaje/2;
+}
+void Detective:: duplicarPuntaje() {
+    puntaje = puntaje *2;
+}
+void Detective::resetPuntaje() {
+    puntaje = 0;
+}
+
+void Detective::teleportar(int nuevaFila, int nuevaColumna) {
+    fila=nuevaFila;
+    columna=nuevaColumna;
+}
+
+void Detective:: agregarPista() {
+    pistasRecogidas++;
+}
+bool Detective:: haGanado() const {
+    return pistasRecogidas >=10;
+}
+
+void Detective:: mostrarEstado() const {
+    cout<< nombre << ",tu puntaje actual es:"<<puntaje<< " | Pistas:" << pistasRecogidas<<"/10" << endl;
+}

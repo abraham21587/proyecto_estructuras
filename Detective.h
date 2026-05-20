@@ -26,7 +26,19 @@ public:
     int    getPuntaje()       const;
     int    getPistasRecogidas() const;
 
+    void setFila(int fila);
+    void setColumna(int columna);
+    void setPosicion(int fila, int columna);
 
+    void sumarPunto();
+    void reproducirPuntajeMitad();
+    void duplicarPuntaje();
+    void resetPuntaje();
+    void teleportar(int nuevaFila, int nuevaColumna);
+
+    void agregarPista();
+    bool haGanado() const;
+    void mostrarEstado()const;
 };
 
 

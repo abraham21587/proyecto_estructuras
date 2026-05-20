@@ -1,14 +1,14 @@
-# 🕵️ Proyecto: El Caso del Detective
+# Proyecto: El Caso del Detective
 ### Estructuras de Datos — Mayo 2026
 
 ---
 
-## 📋 Descripción general
+## Descripción general
 Juego de investigación criminal en consola desarrollado en C++. El usuario es un detective que debe moverse por una ciudad (cuadrícula 9x9), recolectar 10 pistas ocultas, interrogar testigos y acusar al sospechoso correcto.
 
 ---
 
-## 🗂️ Estructura de archivos
+## Estructura de archivos
 
 ```
 proyecto/
@@ -28,7 +28,7 @@ proyecto/
 
 ---
 
-## 🧱 Estructuras de datos utilizadas
+## Estructuras de datos utilizadas
 
 | Estructura | Archivo | Para qué se usa |
 |---|---|---|
@@ -40,7 +40,7 @@ proyecto/
 
 ---
 
-## 📦 Orden de implementación
+## Orden de implementación
 Las clases se construyeron de adentro hacia afuera, primero las más simples y luego las que dependen de ellas.
 
 1. `Pista` → la más simple, no depende de nadie
@@ -57,7 +57,7 @@ Las clases se construyeron de adentro hacia afuera, primero las más simples y l
 
 ---
 
-## ⚙️ Compilación
+## Compilación
 
 ```bash
 g++ -o detective main.cpp Pista.cpp Sospechoso.cpp Detective.cpp Ubicacion.cpp Pila.cpp Cola.cpp TablaHash.cpp ABB.cpp Mapa.cpp Juego.cpp
@@ -88,7 +88,7 @@ add_executable(detective
 
 ---
 
-## 📚 Clases explicadas
+## Clases explicadas
 
 ---
 
@@ -120,4 +120,4 @@ Porque los tipos de pista son un conjunto fijo y conocido de opciones. Es más l
 
 ---
 
-> 🚧 *Este README se irá actualizando a medida que se implementen las demás clases.*
+> *Iremos modificando el README a medida que se implementen las demás clases.*

@@ -38,6 +38,7 @@ public:
 
     void agregarPista();
     bool haGanado() const;
+
     void mostrarEstado()const;
 };
 

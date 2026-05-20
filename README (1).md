@@ -13,10 +13,10 @@ Juego de investigación criminal en consola desarrollado en C++. El usuario es u
 ```
 proyecto/
 ├── main.cpp
-├── Pista.h / Pista.cpp
-├── Sospechoso.h / Sospechoso.cpp
-├── Detective.h / Detective.cpp
-├── Ubicacion.h / Ubicacion.cpp
+├── Pista.h / Pista.cpp ✓
+├── Sospechoso.h / Sospechoso.cpp ✓
+├── Detective.h / Detective.cpp ✓
+├── Ubicacion.h / Ubicacion.cpp ✓
 ├── Pila.h / Pila.cpp
 ├── Cola.h / Cola.cpp
 ├── TablaHash.h / TablaHash.cpp

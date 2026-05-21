@@ -17,7 +17,7 @@ proyecto/
 ├── Sospechoso.h / Sospechoso.cpp ✓
 ├── Detective.h / Detective.cpp ✓
 ├── Ubicacion.h / Ubicacion.cpp ✓
-├── Pila.h / Pila.cpp
+├── Pila.h / Pila.cpp ✓
 ├── Cola.h / Cola.cpp
 ├── TablaHash.h / TablaHash.cpp
 ├── ABB.h / ABB.cpp

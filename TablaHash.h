@@ -1,13 +1,37 @@
-//
-// Created by lupia on 19/05/2026.
-//
+#ifndef TABLAHASH_H
+#define TABLAHASH_H
 
-#ifndef PROYECFINAL_TABLAHASH_H
-#define PROYECFINAL_TABLAHASH_H
+#include "Sospechoso.h"
+#include <vector>
+using namespace std;
 
+struct NodoHash {
+    string nombre;
+    Sospechoso sospechoso;
+    NodoHash* siguiente;
 
-class TablaHash {
+    NodoHash(string n, Sospechoso s)
+        : nombre(n), sospechoso(s), siguiente(nullptr) {}
 };
 
+class TablaHash {
+private:
+    static const int TAMANO = 11;
+    vector<NodoHash*> tabla;
 
-#endif //PROYECFINAL_TABLAHASH_H
+    int funcionHash(const string& nombre) const;
+
+public:
+    TablaHash();
+    ~TablaHash();
+
+    void        insertar(const string& nombre, const Sospechoso& s);
+    Sospechoso* buscar(const string& nombre);
+    bool        existe(const string& nombre) const;
+
+    void revelarAtributoACulpable();
+    void mostrar() const;
+    string getNombreCulpable() const;
+};
+
+#endif

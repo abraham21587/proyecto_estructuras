@@ -1,13 +1,32 @@
-//
-// Created by lupia on 19/05/2026.
-//
+#ifndef COLA_H
+#define COLA_H
 
-#ifndef PROYECFINAL_COLA_H
-#define PROYECFINAL_COLA_H
+#include <string>
+using namespace std;
 
+struct NodoCola {
+    string declaracion;
+    NodoCola* siguiente;
 
-class Cola {
+    NodoCola(string d) : declaracion(d), siguiente(nullptr) {}
 };
 
+class Cola {
+private:
+    NodoCola* frente;
+    NodoCola* final;
+    int tamano;
 
-#endif //PROYECFINAL_COLA_H
+public:
+    Cola();
+    ~Cola();
+
+    void   encolar(string declaracion);
+    string desencolar();                 // sacar la primera
+    bool   estaVacia() const;
+    int    getTamano() const;
+
+    void mostrar() const;
+};
+
+#endif

@@ -8,13 +8,13 @@
 #include "Pista.h"
 using namespace std;
 
-// Todos los tipos posibles de contenido en una celda
+
 enum TipoUbicacion {
-    PARED,          // # borde del mapa
-    VACIO,          // celda normal transitable
-    CALLEJON,       // | no se puede pasar
-    CON_PISTA,      // tiene una pista oculta
-    CON_TESTIGO     // tiene un testigo
+    PARED,
+    VACIO,
+    CALLEJON,
+    CON_PISTA,
+    CON_TESTIGO
 };
 
 
@@ -24,11 +24,11 @@ private:
     int columna;
     TipoUbicacion tipo;
     bool visitada;
-    bool visible;       // si el usuario ya puede verla en el tablero
-    Pista* pista;       // solo si tipo == CON_PISTA, sino nullptr
+    bool visible;
+    Pista* pista;
 
 public:
-    // Punteros a las 4 vecinas (lista múltiplemente enlazada)
+
     Ubicacion* arriba;
     Ubicacion* abajo;
     Ubicacion* izquierda;

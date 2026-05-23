@@ -11,7 +11,7 @@ Sospechoso::Sospechoso()
 
 Sospechoso::Sospechoso(string nombre, vector<string> atributos)
     : nombre(nombre), atributos(atributos), esCulpable(false) {
-    // Al inicio ningún atributo está revelado
+
     atributosRevelados.resize(atributos.size(), false);
 }
 
@@ -23,7 +23,7 @@ void Sospechoso::marcarCulpable() {
 }
 
 void Sospechoso::revelarSiguienteAtributo() {
-    // Busca el primer atributo que aún no se ha revelado y lo revela
+
     for (int i = 0; i < (int)atributosRevelados.size(); i++) {
         if (!atributosRevelados[i]) {
             atributosRevelados[i] = true;

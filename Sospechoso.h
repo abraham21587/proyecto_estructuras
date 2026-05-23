@@ -12,8 +12,8 @@ using namespace std;
 class Sospechoso {
 private:
     string nombre;
-    vector<string> atributos;       // todos los atributos del sospechoso
-    vector<bool> atributosRevelados; // cuáles ya se le mostraron al usuario
+    vector<string> atributos;
+    vector<bool> atributosRevelados;
     bool esCulpable;
 
 
@@ -26,8 +26,8 @@ public:
     void marcarCulpable();
 
     void revelarSiguienteAtributo();
-    void mostrar() const; // muestra solo los atributos ya revelados
-    void mostrarTodo() const; // para debug
+    void mostrar() const;
+    void mostrarTodo() const;
 };
 
 #endif //PROYECFINAL_SOSPECHOSO_H

@@ -1,5 +1,8 @@
 //
-// Created by lupia on 24/05/2026.
+// Juego.cpp — VERSIÓN CORREGIDA
+// Correcciones:
+//   1. Z ahora mueve hacia abajo correctamente (no colisiona con S = sospechosos)
+//   2. Nueva tecla 'R' permite acusar en CUALQUIER momento del juego
 //
 
 #include "Juego.h"
@@ -96,7 +99,7 @@ void Juego::moverDetective(char direccion) {
     Ubicacion* destino = nullptr;
 
     if      (direccion == 'W') destino = actual->arriba;
-    else if (direccion == 'S') destino = actual->abajo;
+    else if (direccion == 'B') destino = actual->abajo;   // B = abajo (Z convertido a B)
     else if (direccion == 'A') destino = actual->izquierda;
     else if (direccion == 'D') destino = actual->derecha;
 
@@ -116,7 +119,6 @@ void Juego::moverDetective(char direccion) {
         return;
     }
 
-    // Guardar tipo antes de visitar (para detectar pista/testigo)
     TipoUbicacion tipoAntes = tipoDest;
 
     detective->setPosicion(destino->getFila(), destino->getColumna());
@@ -163,12 +165,10 @@ void Juego::usarPista() {
     cout << "\n  Usaste una pista: " << p->getTipoString() << endl;
     aplicarEfectoPista(p);
 
-    // La pista vuelve al mapa en posicion aleatoria
     Ubicacion* nuevaPos = mapa->getPosicionAleatoria();
     nuevaPos->setTipo(CON_PISTA);
     nuevaPos->setPista(p);
 
-    // El mapa se vuelve a cubrir
     mapa->resetearVisibilidad();
     cout << "  La " << p->getTipoString() << " volvio al mapa y el tablero se reseteo.\n";
 }
@@ -232,23 +232,37 @@ void Juego::mostrarSospechosos() {
     tablaSospechosos->mostrar();
 }
 
-void Juego::faseFinal() {
+// -----------------------------------------------------------------------
+// CORRECCIÓN 2: faseFinal() ahora puede llamarse en cualquier momento.
+// Recibe un parámetro que indica si fue forzada por el usuario (R)
+// o automática (10 pistas). Si es forzada pero no tiene las 10 pistas,
+// igual puede acusar — solo se le advierte que le falta evidencia.
+// -----------------------------------------------------------------------
+void Juego::faseFinal(bool acusacionForzada) {
     cout << "\n  ================================================\n";
-    cout << "  " << detective->getNombre()
-         << ", has recolectado las 10 pistas!\n";
+    if (acusacionForzada && !detective->haGanado()) {
+        cout << "  ATENCION: Solo llevas "
+             << detective->getPistasRecogidas()
+             << " de 10 pistas. Acusar ahora es arriesgado!\n";
+    } else {
+        cout << "  " << detective->getNombre()
+             << ", has recolectado las 10 pistas!\n";
+    }
     cout << "  Es momento de acusar.\n";
     mostrarSospechosos();
 
     cout << "\n  A quien acusas? > ";
     string acusado;
-    cin.ignore();
+    // Limpiar buffer antes de getline
+    if (cin.peek() == '\n') cin.ignore();
     getline(cin, acusado);
 
     cout << "\n  Buscando a " << acusado << " en la Tabla Hash...\n";
     Sospechoso* s = tablaSospechosos->buscar(acusado);
 
     if (s == nullptr) {
-        cout << "  Ese sospechoso no existe en el caso.\n";
+        cout << "  Ese sospechoso no existe en el caso. Acusacion cancelada.\n";
+        // NO termina el juego — el usuario puede seguir jugando
         return;
     }
 
@@ -282,23 +296,55 @@ void Juego::iniciar() {
         cout << "\n";
         detective->mostrarEstado();
         mapa->imprimirTablero(detective->getFila(), detective->getColumna());
-        cout << "\n  [W/A/Z/D] Mover  [T] Ver pistas  [S] Sospechosos";
-        cout << "\n  [I] Interrogar   [X] Usar pista  [Q] Rendirse\n";
+
+        // ---------------------------------------------------------------
+        // MENÚ ACTUALIZADO:
+        //   Movimiento: W (arriba) A (izq) Z (abajo) D (derecha)
+        //   Z internamente se convierte a 'B' para no chocar con S
+        //   S = ver Sospechosos  (sin conflicto)
+        //   R = acusar en cualquier momento (nueva tecla)
+        // ---------------------------------------------------------------
+        cout << "\n  [W/A/Z/D] Mover   [T] Ver pistas  [S] Sospechosos";
+        cout << "\n  [I] Interrogar    [X] Usar pista  [R] Acusar ahora  [Q] Rendirse\n";
         cout << "  > ";
 
         char cmd;
         cin >> cmd;
         cmd = toupper(cmd);
 
+        // CORRECCIÓN 1: convertir Z a 'B' antes del switch para que no
+        // colisione con la tecla 'S' de mostrarSospechosos.
+        if (cmd == 'Z') cmd = 'B';
+
         switch (cmd) {
-            case 'W': case 'A': case 'Z': case 'D':
-                if (cmd == 'Z') cmd = 'S'; // internamente el mapa usa S para abajo
+            case 'W':   // arriba
+            case 'A':   // izquierda
+            case 'B':   // abajo  (Z convertido)
+            case 'D':   // derecha
                 moverDetective(cmd);
                 break;
-            case 'T': mostrarPistas();      break;
-            case 'S': mostrarSospechosos(); break;
-            case 'I': interrogarTestigo();  break;
-            case 'X': usarPista();          break;
+
+            case 'T':
+                mostrarPistas();
+                break;
+
+            case 'S':
+                mostrarSospechosos();
+                break;
+
+            case 'I':
+                interrogarTestigo();
+                break;
+
+            case 'X':
+                usarPista();
+                break;
+
+            // CORRECCIÓN 2: acusar en cualquier momento
+            case 'R':
+                faseFinal(true);
+                break;
+
             case 'Q':
                 cout << "  Te rendiste. El caso queda sin resolver.\n";
                 detective->duplicarPuntaje();
@@ -308,11 +354,13 @@ void Juego::iniciar() {
                 cout << "\n";
                 historial->mostrarRanking();
                 break;
+
             default:
                 cout << "  Comando invalido.\n";
         }
 
+        // Activar fase final automática al recolectar las 10 pistas
         if (detective->haGanado() && !juegoTerminado)
-            faseFinal();
+            faseFinal(false);
     }
 }

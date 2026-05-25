@@ -1,6 +1,10 @@
 #ifndef JUEGO_H
 #define JUEGO_H
 
+// Juego.h — VERSIÓN CORREGIDA
+// - faseFinal(bool) acepta parámetro para saber si fue llamada por el usuario (R)
+//   o automáticamente (10 pistas recolectadas)
+
 #include "Mapa.h"
 #include "Detective.h"
 #include "Pila.h"
@@ -31,7 +35,9 @@ private:
     void interrogarTestigo();
     void mostrarPistas();
     void mostrarSospechosos();
-    void faseFinal();
+
+    // CORREGIDO: ahora recibe bool para saber si fue forzada (tecla R)
+    void faseFinal(bool acusacionForzada = false);
 
     string generarDeclaracion() const;
     void   aplicarEfectoPista(Pista* pista);

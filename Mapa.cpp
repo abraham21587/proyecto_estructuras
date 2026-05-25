@@ -4,18 +4,14 @@
 #include <ctime>
 using namespace std;
 
-
 Mapa::Mapa() {
-    srand(time(nullptr));
     construirCeldas();
     conectarCeldas();
     ubicarParedes();
     ubicarCallejones();
     ubicarPistas();
     ubicarTestigos();
-    esquinaSuperiorIzquierda = celdas[0][0];
 }
-
 
 Mapa::~Mapa() {
     for (int i = 0; i < FILAS; i++)
@@ -29,35 +25,23 @@ void Mapa::construirCeldas() {
             celdas[i][j] = new Ubicacion(i, j, VACIO);
 }
 
-
 void Mapa::conectarCeldas() {
     for (int i = 0; i < FILAS; i++) {
         for (int j = 0; j < COLUMNAS; j++) {
-            // Arriba
-            if (i > 0)
-                celdas[i][j]->arriba = celdas[i-1][j];
-            // Abajo
-            if (i < FILAS - 1)
-                celdas[i][j]->abajo = celdas[i+1][j];
-            // Izquierda
-            if (j > 0)
-                celdas[i][j]->izquierda = celdas[i][j-1];
-            // Derecha
-            if (j < COLUMNAS - 1)
-                celdas[i][j]->derecha = celdas[i][j+1];
+            celdas[i][j]->arriba    = (i > 0)          ? celdas[i-1][j] : nullptr;
+            celdas[i][j]->abajo     = (i < FILAS-1)    ? celdas[i+1][j] : nullptr;
+            celdas[i][j]->izquierda = (j > 0)          ? celdas[i][j-1] : nullptr;
+            celdas[i][j]->derecha   = (j < COLUMNAS-1) ? celdas[i][j+1] : nullptr;
         }
     }
 }
 
 void Mapa::ubicarParedes() {
-    for (int i = 0; i < FILAS; i++) {
-        for (int j = 0; j < COLUMNAS; j++) {
+    for (int i = 0; i < FILAS; i++)
+        for (int j = 0; j < COLUMNAS; j++)
             if (i == 0 || i == FILAS-1 || j == 0 || j == COLUMNAS-1)
                 celdas[i][j]->setTipo(PARED);
-        }
-    }
 }
-
 
 void Mapa::ubicarCallejones() {
     int colocados = 0;
@@ -70,7 +54,6 @@ void Mapa::ubicarCallejones() {
         }
     }
 }
-
 
 void Mapa::ubicarPistas() {
     TipoPista tipos[4] = {HUELLA, COARTADA, TESTIMONIO, PRUEBA_FORENSE};
@@ -88,7 +71,6 @@ void Mapa::ubicarPistas() {
     }
 }
 
-
 void Mapa::ubicarTestigos() {
     int colocados = 0;
     while (colocados < 5) {
@@ -101,20 +83,13 @@ void Mapa::ubicarTestigos() {
     }
 }
 
-bool Mapa::esPosicionValida(int f, int c) const {
-    return f >= 1 && f <= 9 && c >= 1 && c <= 9;
-}
-
 bool Mapa::esPosicionLibre(int f, int c) const {
-    TipoUbicacion t = celdas[f][c]->getTipo();
-    return t == VACIO;
+    return celdas[f][c]->getTipo() == VACIO;
 }
-
 
 Ubicacion* Mapa::getCelda(int f, int c) const {
     return celdas[f][c];
 }
-
 
 Ubicacion* Mapa::getPosicionAleatoria() const {
     int f, c;
@@ -124,7 +99,6 @@ Ubicacion* Mapa::getPosicionAleatoria() const {
     } while (!esPosicionLibre(f, c));
     return celdas[f][c];
 }
-
 
 void Mapa::imprimirTablero(int detectiveFila, int detectiveColumna) const {
     for (int i = 0; i < FILAS; i++) {
@@ -136,14 +110,11 @@ void Mapa::imprimirTablero(int detectiveFila, int detectiveColumna) const {
     }
 }
 
-
 void Mapa::resetearVisibilidad() {
     for (int i = 1; i <= 9; i++)
         for (int j = 1; j <= 9; j++)
-            if (celdas[i][j]->getTipo() != PARED)
-                celdas[i][j]->~Ubicacion();
+            celdas[i][j]->resetVisita();
 }
-
 
 bool Mapa::hayPistaEn(int f, int c) const {
     return celdas[f][c]->getTipo() == CON_PISTA;
@@ -158,15 +129,12 @@ bool Mapa::esTransitable(int f, int c) const {
     return t == VACIO || t == CON_PISTA || t == CON_TESTIGO;
 }
 
-
 void Mapa::eliminarCallejonesAleatorios(int cantidad) {
-
     vector<pair<int,int>> callejones;
     for (int i = 1; i <= 9; i++)
         for (int j = 1; j <= 9; j++)
             if (celdas[i][j]->getTipo() == CALLEJON)
                 callejones.push_back({i, j});
-
 
     for (int k = 0; k < cantidad && !callejones.empty(); k++) {
         int idx = rand() % callejones.size();
@@ -174,7 +142,6 @@ void Mapa::eliminarCallejonesAleatorios(int cantidad) {
         int c = callejones[idx].second;
         celdas[f][c]->setTipo(VACIO);
         callejones.erase(callejones.begin() + idx);
-        cout << "  Callejon eliminado en ["
-             << f << "," << c << "]" << endl;
+        cout << "  Callejon eliminado en [" << f << "," << c << "]" << endl;
     }
 }

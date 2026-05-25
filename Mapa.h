@@ -2,18 +2,15 @@
 #define MAPA_H
 
 #include "Ubicacion.h"
-#include "Pista.h"
-#include "Sospechoso.h"
 #include <vector>
 using namespace std;
 
 class Mapa {
 private:
-    static const int FILAS    = 11; // 9 internas + 2 bordes
+    static const int FILAS    = 11;
     static const int COLUMNAS = 11;
 
-    Ubicacion* celdas[11][11]; // arreglo de punteros (solo para construir)
-    Ubicacion* esquinaSuperiorIzquierda; // entrada a la lista enlazada
+    Ubicacion* celdas[11][11];
 
     void construirCeldas();
     void conectarCeldas();
@@ -22,7 +19,6 @@ private:
     void ubicarPistas();
     void ubicarTestigos();
 
-    bool esPosicionValida(int fila, int col) const;
     bool esPosicionLibre(int fila, int col) const;
 
 public:

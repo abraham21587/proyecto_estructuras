@@ -9,7 +9,6 @@ struct NodoABB {
     int puntaje;
     NodoABB* izquierda;
     NodoABB* derecha;
-
     NodoABB(string n, int p)
         : nombre(n), puntaje(p),
           izquierda(nullptr), derecha(nullptr) {}

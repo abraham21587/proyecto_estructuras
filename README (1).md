@@ -18,12 +18,12 @@ proyecto/
 ├── Detective.h / Detective.cpp ✓
 ├── Ubicacion.h / Ubicacion.cpp ✓
 ├── Pila.h / Pila.cpp ✓
-├── Cola.h / Cola.cpp
-├── TablaHash.h / TablaHash.cpp
-├── ABB.h / ABB.cpp
-├── Mapa.h / Mapa.cpp
-├── Juego.h / Juego.cpp
-└── README.md
+├── Cola.h / Cola.cpp ✓
+├── TablaHash.h / TablaHash.cpp ✓
+├── ABB.h / ABB.cpp ✓
+├── Mapa.h / Mapa.cpp ✓
+├── Juego.h / Juego.cpp ✓
+└── README.md ✓
 ```
 
 ---

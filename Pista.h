@@ -1,9 +1,5 @@
-//
-// Created by lupia on 19/05/2026.
-//
-
-#ifndef PROYECFINAL_PISTA_H
-#define PROYECFINAL_PISTA_H
+#ifndef PISTA_H
+#define PISTA_H
 
 #include <string>
 using namespace std;
@@ -27,5 +23,4 @@ public:
     string getSimbolo() const;
 };
 
-#endif //PROYECFINAL_PISTA_H
-
+#endif

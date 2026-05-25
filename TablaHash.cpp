@@ -53,7 +53,6 @@ bool TablaHash::existe(const string& nombre) const {
 }
 
 void TablaHash::revelarAtributoACulpable() {
-
     for (int i = 0; i < TAMANO; i++) {
         NodoHash* actual = tabla[i];
         while (actual != nullptr) {

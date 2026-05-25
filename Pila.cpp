@@ -1,7 +1,3 @@
-//
-// Created by lupia on 19/05/2026.
-//
-
 #include "Pila.h"
 #include <iostream>
 using namespace std;
@@ -13,20 +9,18 @@ Pila::~Pila() {
         NodoPila* tmp = tope;
         tope = tope->siguiente;
         delete tmp;
-    };
+    }
 }
 
-void Pila::push(Pista *pista) {
-
+void Pila::push(Pista* pista) {
     NodoPila* nuevo = new NodoPila(pista);
     nuevo->siguiente = tope;
     tope = nuevo;
     tamano++;
-
 }
 
 Pista* Pila::pop() {
-    if (!estaVacia()) return nullptr;
+    if (estaVacia()) return nullptr;
     NodoPila* tmp = tope;
     Pista* p = tope->pista;
     tope = tope->siguiente;
@@ -35,42 +29,31 @@ Pista* Pila::pop() {
     return p;
 }
 
-Pista *Pila::peek() const {
-    if (!estaVacia()) return nullptr;
+Pista* Pila::peek() const {
+    if (estaVacia()) return nullptr;
     return tope->pista;
 }
 
-bool Pila::estaVacia() const {
-    return tope == nullptr;
-}
-
-int Pila::getTamano() const {
-    return tamano;
-}
+bool Pila::estaVacia() const { return tope == nullptr; }
+int  Pila::getTamano() const { return tamano; }
 
 void Pila::mostrar() const {
     if (estaVacia()) {
-        cout << "no has recogido pistas aun" << endl;
+        cout << "  No has recogido pistas aun." << endl;
         return;
     }
-
-    cout << "['# #']" << endl;
-    cout << "['# #']" << endl;
-
+    cout << "  ['# #']" << endl;
+    cout << "  ['# #']" << endl;
     NodoPila* actual = tope;
     int pos = tamano;
     while (actual != nullptr) {
-        cout << "['# " <<actual->pista->getSimbolo() <<" #']" << endl;
-        if (pos == tamano)
-            cout << "<- ultima(se usa con X)";
-        if (pos == tamano - 1)
-            cout << "penultima";
-        if (pos == tamano - 2)
-            cout << "antepenultima";
+        cout << "  ['# " << actual->pista->getSimbolo() << " #']";
+        if (pos == tamano)     cout << " <- ultima (se usa con X)";
+        if (pos == tamano - 1) cout << " <- penultima";
+        if (pos == tamano - 2) cout << " <- antepenultima";
         cout << endl;
         actual = actual->siguiente;
         pos--;
     }
-    cout << "['# #']" << endl;
+    cout << "  ['# #']" << endl;
 }
-

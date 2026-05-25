@@ -1,9 +1,5 @@
-//
-// Created by lupia on 19/05/2026.
-//
-
-#ifndef PROYECFINAL_SOSPECHOSO_H
-#define PROYECFINAL_SOSPECHOSO_H
+#ifndef SOSPECHOSO_H
+#define SOSPECHOSO_H
 
 #include <string>
 #include <vector>
@@ -15,7 +11,6 @@ private:
     vector<string> atributos;
     vector<bool> atributosRevelados;
     bool esCulpable;
-
 
 public:
     Sospechoso();
@@ -30,4 +25,4 @@ public:
     void mostrarTodo() const;
 };
 
-#endif //PROYECFINAL_SOSPECHOSO_H
+#endif

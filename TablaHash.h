@@ -9,7 +9,6 @@ struct NodoHash {
     string nombre;
     Sospechoso sospechoso;
     NodoHash* siguiente;
-
     NodoHash(string n, Sospechoso s)
         : nombre(n), sospechoso(s), siguiente(nullptr) {}
 };
@@ -29,8 +28,8 @@ public:
     Sospechoso* buscar(const string& nombre);
     bool        existe(const string& nombre) const;
 
-    void revelarAtributoACulpable();
-    void mostrar() const;
+    void   revelarAtributoACulpable();
+    void   mostrar() const;
     string getNombreCulpable() const;
 };
 

@@ -1,19 +1,12 @@
-//
-// Created by lupia on 19/05/2026.
-//
-
 #include "Pista.h"
 
 Pista::Pista() : tipo(HUELLA), recogida(false) {}
-
 Pista::Pista(TipoPista tipo) : tipo(tipo), recogida(false) {}
 
-TipoPista Pista::getTipo()  const { return tipo; }
+TipoPista Pista::getTipo()    const { return tipo; }
 bool      Pista::isRecogida() const { return recogida; }
 
-void Pista::recoger() {
-    recogida = true;
-}
+void Pista::recoger() { recogida = true; }
 
 string Pista::getTipoString() const {
     switch (tipo) {

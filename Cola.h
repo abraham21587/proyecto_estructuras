@@ -7,14 +7,13 @@ using namespace std;
 struct NodoCola {
     string declaracion;
     NodoCola* siguiente;
-
     NodoCola(string d) : declaracion(d), siguiente(nullptr) {}
 };
 
 class Cola {
 private:
     NodoCola* frente;
-    NodoCola* final;
+    NodoCola* final_;
     int tamano;
 
 public:
@@ -22,7 +21,7 @@ public:
     ~Cola();
 
     void   encolar(string declaracion);
-    string desencolar();                 // sacar la primera
+    string desencolar();
     bool   estaVacia() const;
     int    getTamano() const;
 

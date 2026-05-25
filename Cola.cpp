@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-Cola::Cola() : frente(nullptr), final(nullptr), tamano(0) {}
+Cola::Cola() : frente(nullptr), final_(nullptr), tamano(0) {}
 
 Cola::~Cola() {
     while (!estaVacia()) {
@@ -16,10 +16,10 @@ void Cola::encolar(string declaracion) {
     NodoCola* nuevo = new NodoCola(declaracion);
     if (estaVacia()) {
         frente = nuevo;
-        final  = nuevo;
+        final_ = nuevo;
     } else {
-        final->siguiente = nuevo;
-        final = nuevo;
+        final_->siguiente = nuevo;
+        final_ = nuevo;
     }
     tamano++;
 }
@@ -29,7 +29,7 @@ string Cola::desencolar() {
     NodoCola* tmp = frente;
     string dec = frente->declaracion;
     frente = frente->siguiente;
-    if (frente == nullptr) final = nullptr;
+    if (frente == nullptr) final_ = nullptr;
     delete tmp;
     tamano--;
     return dec;

@@ -1,9 +1,5 @@
-//
-// Created by lupia on 19/05/2026.
-//
-
-#ifndef PROYECFINAL_DETECTIVE_H
-#define PROYECFINAL_DETECTIVE_H
+#ifndef DETECTIVE_H
+#define DETECTIVE_H
 
 #include <string>
 using namespace std;
@@ -20,10 +16,10 @@ public:
     Detective();
     Detective(string nombre, int filaInicial, int columnaInicial);
 
-    string getNombre()        const;
-    int    getFila()          const;
-    int    getColumna()       const;
-    int    getPuntaje()       const;
+    string getNombre()          const;
+    int    getFila()            const;
+    int    getColumna()         const;
+    int    getPuntaje()         const;
     int    getPistasRecogidas() const;
 
     void setFila(int fila);
@@ -31,16 +27,16 @@ public:
     void setPosicion(int fila, int columna);
 
     void sumarPunto();
-    void reproducirPuntajeMitad();
+    void reducirPuntajeMitad();
     void duplicarPuntaje();
     void resetPuntaje();
     void teleportar(int nuevaFila, int nuevaColumna);
 
     void agregarPista();
+    void quitarPista();
     bool haGanado() const;
 
-    void mostrarEstado()const;
+    void mostrarEstado() const;
 };
 
-
-#endif //PROYECFINAL_DETECTIVE_H
+#endif

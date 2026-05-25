@@ -1,7 +1,3 @@
-//
-// Created by lupia on 19/05/2026.
-//
-
 #include "Ubicacion.h"
 #include <iostream>
 using namespace std;
@@ -18,10 +14,7 @@ Ubicacion::Ubicacion(int fila, int columna, TipoUbicacion tipo)
       arriba(nullptr), abajo(nullptr),
       izquierda(nullptr), derecha(nullptr) {}
 
-Ubicacion::~Ubicacion() {
-
-}
-
+Ubicacion::~Ubicacion() {}
 
 int           Ubicacion::getFila()    const { return fila; }
 int           Ubicacion::getColumna() const { return columna; }
@@ -29,7 +22,6 @@ TipoUbicacion Ubicacion::getTipo()    const { return tipo; }
 bool          Ubicacion::isVisitada() const { return visitada; }
 bool          Ubicacion::isVisible()  const { return visible; }
 Pista*        Ubicacion::getPista()   const { return pista; }
-
 
 void Ubicacion::setTipo(TipoUbicacion t) { tipo = t; }
 
@@ -42,31 +34,30 @@ void Ubicacion::hacerVisible() {
     visible = true;
 }
 
-void Ubicacion::setPista(Pista* p) {
-    pista = p;
+void Ubicacion::resetVisita() {
+    visitada = false;
+    visible  = false;
 }
+
+void Ubicacion::setPista(Pista* p) { pista = p; }
 
 void Ubicacion::quitarPista() {
     pista = nullptr;
     tipo  = VACIO;
 }
 
-
 char Ubicacion::getSimbolo(int detectiveFila, int detectiveColumna) const {
-
-
     if (fila == detectiveFila && columna == detectiveColumna)
         return 'I';
 
-
     switch (tipo) {
-        case PARED:    return '#';
+        case PARED:
+            return '#';
         case CALLEJON:
             return visible ? '|' : 'o';
         case CON_TESTIGO:
-            return visible ? 'W' : 'o';
+            return visitada ? 'W' : 'o';
         case CON_PISTA:
-
             return visitada ? ' ' : 'o';
         case VACIO:
             return visitada ? ' ' : 'o';

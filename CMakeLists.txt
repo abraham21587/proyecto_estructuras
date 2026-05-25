@@ -15,5 +15,9 @@ add_executable(ProyecFinal
         Mapa.cpp
         ABB.cpp
         Juego.cpp
+<<<<<<< HEAD
         Juego.h
 )
+=======
+)
+>>>>>>> a251a4aa05f5cdf10f259c67dfa75fd59957f74f

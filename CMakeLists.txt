@@ -14,4 +14,6 @@ add_executable(ProyecFinal
         TablaHash.cpp
         Mapa.cpp
         ABB.cpp
+        Juego.cpp
+        Juego.h
 )

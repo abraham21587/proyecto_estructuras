@@ -73,7 +73,7 @@ void Juego::inicializarSospechosos() {
 
 void Juego::inicializarDetective() {
     string nombre;
-    cout << "\n  Ingresa tu nombre, detective: ";
+    cout << "\n  Ingresa tu nombre de detective: ";
     getline(cin, nombre);
 
     Ubicacion* posInicial = mapa->getPosicionAleatoria();
@@ -232,12 +232,8 @@ void Juego::mostrarSospechosos() {
     tablaSospechosos->mostrar();
 }
 
-// -----------------------------------------------------------------------
-// CORRECCIÓN 2: faseFinal() ahora puede llamarse en cualquier momento.
-// Recibe un parámetro que indica si fue forzada por el usuario (R)
-// o automática (10 pistas). Si es forzada pero no tiene las 10 pistas,
-// igual puede acusar — solo se le advierte que le falta evidencia.
-// -----------------------------------------------------------------------
+
+
 void Juego::faseFinal(bool acusacionForzada) {
     cout << "\n  ================================================\n";
     if (acusacionForzada && !detective->haGanado()) {
@@ -285,9 +281,8 @@ void Juego::faseFinal(bool acusacionForzada) {
 }
 
 void Juego::iniciar() {
-    cout << "\n  ============================================\n";
+
     cout << "       BIENVENIDO AL CASO DEL DETECTIVE     \n";
-    cout << "  ============================================\n";
 
     inicializarSospechosos();
     inicializarDetective();
@@ -297,14 +292,8 @@ void Juego::iniciar() {
         detective->mostrarEstado();
         mapa->imprimirTablero(detective->getFila(), detective->getColumna());
 
-        // ---------------------------------------------------------------
-        // MENÚ ACTUALIZADO:
-        //   Movimiento: W (arriba) A (izq) Z (abajo) D (derecha)
-        //   Z internamente se convierte a 'B' para no chocar con S
-        //   S = ver Sospechosos  (sin conflicto)
-        //   R = acusar en cualquier momento (nueva tecla)
-        // ---------------------------------------------------------------
-        cout << "\n  [W/A/Z/D] Mover   [T] Ver pistas  [S] Sospechosos";
+
+        cout << "\n  [W/A/S/D] Mover   [T] Ver pistas  [Z] Sospechosos";
         cout << "\n  [I] Interrogar    [X] Usar pista  [R] Acusar ahora  [Q] Rendirse\n";
         cout << "  > ";
 
@@ -314,12 +303,12 @@ void Juego::iniciar() {
 
         // CORRECCIÓN 1: convertir Z a 'B' antes del switch para que no
         // colisione con la tecla 'S' de mostrarSospechosos.
-        if (cmd == 'Z') cmd = 'B';
+        if (cmd == 'S') cmd = 'B';
 
         switch (cmd) {
             case 'W':   // arriba
             case 'A':   // izquierda
-            case 'B':   // abajo  (Z convertido)
+            case 'B':   // abajo(S convertido)
             case 'D':   // derecha
                 moverDetective(cmd);
                 break;
@@ -340,7 +329,7 @@ void Juego::iniciar() {
                 usarPista();
                 break;
 
-            // CORRECCIÓN 2: acusar en cualquier momento
+            // acusar en cualquier momento
             case 'R':
                 faseFinal(true);
                 break;

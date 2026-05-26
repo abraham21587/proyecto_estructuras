@@ -4,11 +4,11 @@
 ---
 
 ## Descripción general
-Juego de investigación criminal en consola desarrollado en C++. El usuario es un detective que debe moverse por una ciudad (cuadrícula 9x9), recolectar 10 pistas ocultas, interrogar testigos y acusar al sospechoso correcto.
+Es un juego de investigación criminal donde somos un detective que debe moverse por el mapa e ir recolectando pistas ocultas, interrogar testigos y acusar al sospechoso correcto.
 
 ---
 
-## Estructura de archivos
+## Estructura de los archivos
 
 ```
 proyecto/
@@ -29,21 +29,20 @@ proyecto/
 ---
 
 ## Estructuras de datos utilizadas
-
-| Estructura | Archivo | Para qué se usa |
-|---|---|---|
+| Estructura | Archivo | En que lo usamos                                                                 |
+|---|---|----------------------------------------------------------------------------------|
 | Lista múltiplemente enlazada | `Mapa` | El tablero de la ciudad (cada celda conectada arriba, abajo, izquierda, derecha) |
-| Pila | `Pila` | Las pistas recogidas por el detective (LIFO) |
-| Cola | `Cola` | Declaraciones de testigos por procesar (FIFO) |
-| Tabla Hash | `TablaHash` | Los 8 sospechosos del caso, búsqueda eficiente por nombre |
-| ABB | `ABB` | Historial de puntajes de detectives, ordenado de menor a mayor |
+| Pila | `Pila` | Las pistas recogidas por el detective (LIFO)                                     |
+| Cola | `Cola` | Declaraciones de testigos por procesar (FIFO)                                    |
+| Tabla Hash | `TablaHash` | Los 8 sospechosos del caso con búsqueda por nombre                               |
+| ABB | `ABB` | Historial de puntajes de detectives, ordenado de menor a mayor                   |
 
 ---
 
 ## Orden de implementación
-Las clases se construyeron de adentro hacia afuera, primero las más simples y luego las que dependen de ellas.
+Fuimos creando las clases de manera de adentro hacia afuera, primero las más simples y luego las que van a depender de ellas.
 
-1. `Pista` → la más simple, no depende de nadie
+1. `Pista` → la más simple y q no depende de nadie
 2. `Sospechoso` → datos del sospechoso y sus atributos
 3. `Detective` → datos del jugador
 4. `Ubicacion` → una celda del mapa
@@ -51,73 +50,6 @@ Las clases se construyeron de adentro hacia afuera, primero las más simples y l
 6. `Cola` → para las declaraciones de testigos
 7. `TablaHash` → para gestionar los sospechosos
 8. `ABB` → para el historial de puntajes
-9. `Mapa` → el más complejo, une todo el tablero
-10. `Juego` → lógica principal que une todas las clases
+9. `Mapa` → lo más complejo mk une todo el tablero
+10. `Juego` → la lógica principal que une todas las clases (lo mas largo)
 11. `main` → punto de entrada, solo arranca el juego
-
----
-
-## Compilación
-
-```bash
-g++ -o detective main.cpp Pista.cpp Sospechoso.cpp Detective.cpp Ubicacion.cpp Pila.cpp Cola.cpp TablaHash.cpp ABB.cpp Mapa.cpp Juego.cpp
-./detective
-```
-
-O en CLion, el `CMakeLists.txt` debe incluir todos los `.cpp`:
-
-```cmake
-cmake_minimum_required(VERSION 3.x)
-project(detective)
-set(CMAKE_CXX_STANDARD 17)
-
-add_executable(detective
-        main.cpp
-        Pista.cpp
-        Sospechoso.cpp
-        Detective.cpp
-        Ubicacion.cpp
-        Pila.cpp
-        Cola.cpp
-        TablaHash.cpp
-        ABB.cpp
-        Mapa.cpp
-        Juego.cpp
-)
-```
-
----
-
-## Clases explicadas
-
----
-
-### 🔍 `Pista`
-**Archivos:** `Pista.h`, `Pista.cpp`
-
-Representa una pista oculta en el mapa. Puede ser de 4 tipos definidos con un `enum`:
-
-| Tipo | Símbolo | Efecto al usarla con "X" |
-|---|---|---|
-| Huella | H | Reduce a la mitad los puntos acumulados |
-| Coartada | C | Elimina 2 callejones cerrados del tablero aleatoriamente |
-| Testimonio | T | Aleatoriamente: puntaje a cero O se multiplica por 2 |
-| Prueba Forense | P | Teletransporta al detective a una posición aleatoria válida |
-
-**¿Por qué `enum`?**
-Porque los tipos de pista son un conjunto fijo y conocido de opciones. Es más legible que usar números (0, 1, 2, 3) y el compilador avisa si usas un valor inválido.
-
-**Atributos:**
-- `tipo` → el tipo de pista (TipoPista)
-- `recogida` → si ya fue tomada por el detective o no
-
-**Métodos:**
-- `getTipo()` → devuelve el enum del tipo
-- `getTipoString()` → devuelve el nombre legible ("Huella", "Coartada", etc.)
-- `getSimbolo()` → devuelve la letra para mostrar en el tablero (H, C, T, P)
-- `recoger()` → marca la pista como recogida
-- `isRecogida()` → consulta si ya fue recogida
-
----
-
-> *Iremos modificando el README a medida que se implementen las demás clases.*

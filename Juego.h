@@ -1,10 +1,6 @@
 #ifndef JUEGO_H
 #define JUEGO_H
 
-// Juego.h — VERSIÓN CORREGIDA
-// - faseFinal(bool) acepta parámetro para saber si fue llamada por el usuario (R)
-//   o automáticamente (10 pistas recolectadas)
-
 #include "Mapa.h"
 #include "Detective.h"
 #include "Pila.h"

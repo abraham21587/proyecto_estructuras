@@ -1,6 +1,8 @@
 #include "Pista.h"
+//C. vacio con la lista de inicialización
+Pista::Pista() : tipo(HUELLA), recogida(false) {} //
 
-Pista::Pista() : tipo(HUELLA), recogida(false) {}
+//constructor con el parametro
 Pista::Pista(TipoPista tipo) : tipo(tipo), recogida(false) {}
 
 TipoPista Pista::getTipo()    const { return tipo; }
